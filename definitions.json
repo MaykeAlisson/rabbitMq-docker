@@ -1,0 +1,302 @@
+{
+  "rabbit_version": "3.6.5",
+  "users": [
+    {
+      "name": "guest",
+      "password_hash": "o2MJjT8UKSRM7eoLDMWvm4LxqaFvDxd2wLg1KQQQ2jXfG5UE",
+      "hashing_algorithm": "rabbit_password_hashing_sha256",
+      "tags": "administrator"
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "/"
+    },
+    {
+      "name": "siga"
+    },
+    {
+      "name": "b2b"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "guest",
+      "vhost": "/",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "guest",
+      "vhost": "siga",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "guest",
+      "vhost": "b2b",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    }
+  ],
+  "parameters": [],
+  "policies": [],
+  "queues": [
+    {
+      "name": "erros",
+      "vhost": "siga",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-ha-policy": "all"
+      }
+    },
+    {
+      "name": "agendamento-descarga",
+      "vhost": "b2b",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-ha-policy": "all"
+      }
+    },
+    {
+      "name": "gerar-arquivo-cliente",
+      "vhost": "b2b",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-ha-policy": "all"
+      }
+    },
+    {
+      "name": "liberar-acesso",
+      "vhost": "b2b",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-ha-policy": "all"
+      }
+    },
+    {
+      "name": "pre-cadastro",
+      "vhost": "b2b",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-ha-policy": "all"
+      }
+    },
+    {
+      "name": "liberacao-pedantec",
+      "vhost": "siga",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-ha-policy": "all"
+      }
+    },
+    {
+      "name": "registro-boleto",
+      "vhost": "siga",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-ha-policy": "all"
+      }
+    },
+    {
+      "name": "registro-pix",
+      "vhost": "siga",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-ha-policy": "all"
+      }
+    },
+    {
+      "name": "solicitacao-segunda-via",
+      "vhost": "b2b",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-ha-policy": "all"
+      }
+    },
+    {
+      "name": "sem-acesso",
+      "vhost": "b2b",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-ha-policy": "all"
+      }
+    },
+    {
+      "name": "carga-lista-precos-b2b",
+      "vhost": "siga",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-ha-policy": "all"
+      }
+    },
+    {
+      "name": "erro-frenet",
+      "vhost": "b2b",
+      "durable": true,
+      "auto_delete": false,
+      "arguments": {
+        "x-ha-policy": "all"
+      }
+    }
+  ],
+  "exchanges":[
+    {
+      "name": "cliente",
+      "vhost": "b2b",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+    {
+      "name": "estoque",
+      "vhost": "b2b",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+    {
+      "name": "pedido",
+      "vhost": "b2b",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+    {
+      "name": "erros",
+      "vhost": "siga",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    },
+    {
+      "name": "vendas",
+      "vhost": "siga",
+      "type": "direct",
+      "durable": true,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": [
+    {
+      "source": "cliente",
+      "vhost": "b2b",
+      "destination": "gerar-arquivo-cliente",
+      "destination_type": "queue",
+      "routing_key": "cliente.gerar-arquivo-cliente",
+      "arguments": {}
+    },
+    {
+      "source": "cliente",
+      "vhost": "b2b",
+      "destination": "liberar-acesso",
+      "destination_type": "queue",
+      "routing_key": "cliente.liberar-acesso",
+      "arguments": {}
+    },
+    {
+      "source": "cliente",
+      "vhost": "b2b",
+      "destination": "pre-cadastro",
+      "destination_type": "queue",
+      "routing_key": "cliente.pre-cadastro",
+      "arguments": {}
+    },
+    {
+      "source": "cliente",
+      "vhost": "b2b",
+      "destination": "solicitacao-segunda-via",
+      "destination_type": "queue",
+      "routing_key": "cliente.solicitacao-segunda-via",
+      "arguments": {}
+    },
+    {
+      "source": "cliente",
+      "vhost": "b2b",
+      "destination": "sem-acesso",
+      "destination_type": "queue",
+      "routing_key": "cliente.sem-acesso",
+      "arguments": {}
+    },
+    {
+      "source": "cliente",
+      "vhost": "b2b",
+      "destination": "erro-frenet",
+      "destination_type": "queue",
+      "routing_key": "cliente.erro-frenet",
+      "arguments": {}
+    },
+    {
+      "source": "estoque",
+      "vhost": "b2b",
+      "destination": "agendamento-descarga",
+      "destination_type": "queue",
+      "routing_key": "estoque.agendamento-descarga",
+      "arguments": {}
+    },
+    {
+      "source": "erros",
+      "vhost": "siga",
+      "destination": "erros",
+      "destination_type": "queue",
+      "routing_key": "erros.erros",
+      "arguments": {}
+    },
+    {
+      "source": "vendas",
+      "vhost": "siga",
+      "destination": "liberacao-pedantec",
+      "destination_type": "queue",
+      "routing_key": "vendas.liberacao-pedantec",
+      "arguments": {}
+    },
+    {
+      "source": "vendas",
+      "vhost": "siga",
+      "destination": "registro-boleto",
+      "destination_type": "queue",
+      "routing_key": "vendas.registro-boleto",
+      "arguments": {}
+    },
+    {
+      "source": "vendas",
+      "vhost": "siga",
+      "destination": "registro-pix",
+      "destination_type": "queue",
+      "routing_key": "vendas.registro-pix",
+      "arguments": {}
+    },
+    {
+      "source": "vendas",
+      "vhost": "siga",
+      "destination": "carga-lista-precos-b2b",
+      "destination_type": "queue",
+      "routing_key": "vendas.carga-lista-precos-b2b",
+      "arguments": {}
+    }
+  ]
+}
